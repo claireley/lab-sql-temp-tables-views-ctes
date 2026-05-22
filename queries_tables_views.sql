@@ -4,7 +4,7 @@ CREATE VIEW rental_summary AS
 FROM rental as r inner join customer as c on r.customer_id=c.customer_id group by r.customer_id, name, c.email);
 select * from rental_summary;
 
-CREATE TEMPORARY TABLE total_paid_per_customer
+CREATE TEMPORARY TABLE total_paid_per_customer AS
 SELECT rs.customer_id, sum(p.amount) as total_paid from rental_summary as rs join payment as p on rs.customer_id=p.customer_id group by rs.customer_id;
 
 WITH cte_summary_per_cust AS(
